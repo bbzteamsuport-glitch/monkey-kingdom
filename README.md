@@ -71,6 +71,24 @@ https://bbzteamsuport-glitch.github.io/monkey-kingdom/.
 
 Официальная документация: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
+## Иллюстрация и анимации
+
+Главный персонаж создан встроенным ImageGen на основе исходного маскота и оптимизирован в `assets/monkey-king-3d.webp` с прозрачностью. Исходная SVG-иконка сохранена для логотипа и favicon. Описание генерации: `assets/monkey-king-3d.prompt.md`.
+
+Анимации секций, персонажа и подтверждения голоса работают без дополнительных библиотек. Кнопка «Анимации» на иллюстрации приостанавливает эффекты и сохраняет настройку в браузере. Системная настройка `prefers-reduced-motion` отключает движение; в скрытой вкладке циклические эффекты приостановлены.
+
+## Публикация из консоли
+
+В локальной копии после проверки изменений:
+
+```powershell
+git add index.html styles.css script.js README.md assets/monkey-king-3d.webp assets/monkey-king-3d.prompt.md
+git commit -m "Polish Monkey Kingdom mascot and animations"
+git push origin main
+```
+
+GitHub Pages автоматически публикует `main`. Для первой авторизации Git Credential Manager: `git credential-manager github login --username bbzteamsuport-glitch --device`.
+
 ## Структура
 
 ```text
@@ -82,7 +100,9 @@ monkey-kingdom/
 ├── supabase-setup.sql    # Необязательная база для общих голосов
 ├── assets/
 │   ├── favicon.svg
-│   └── monkey-king.svg
+│   ├── monkey-king.svg
+│   ├── monkey-king-3d.webp
+│   └── monkey-king-3d.prompt.md
 ├── .nojekyll
 └── README.md
 ```

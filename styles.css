@@ -18,3 +18,39 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 /* Keep the right ambient light within the viewport on small screens. */
 @media(max-width:600px){.ambient-two{right:0;width:150px}}
+
+/* Royal mascot and motion. All looping effects have a visible pause control. */
+.hero-art{--tilt-x:0deg;--tilt-y:0deg;transform:perspective(1100px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transition:transform .4s ease,box-shadow .4s ease;background:radial-gradient(ellipse at 50% 40%,#ba92ff 0%,#8a5bce 48%,#49266e 100%)}
+.mascot-float{position:absolute;z-index:2;inset:32px -10px -9px;pointer-events:none;animation:mascot-float 6s ease-in-out infinite}
+.hero-art .monkey-illustration{position:static;width:100%;height:100%;max-width:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 18px 16px rgba(26,11,37,.3));transition:transform .5s ease}
+.hero-art:hover .monkey-illustration{transform:scale(1.025)}
+.hero-art-pattern{animation:pattern-drift 18s linear infinite alternate}
+.floating-star{animation:star-drift 5s ease-in-out infinite}.star-two{animation-delay:-2.5s}
+.floating-ticket{animation:ticket-drift 6s ease-in-out infinite}
+.hero-copy{animation:hero-arrive .75s ease both}
+.hero-art::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.3);pointer-events:none}
+.top-art-label{font-size:9px;letter-spacing:1px;top:25px;left:24px}
+.floating-ticket{bottom:25px;font-size:9px;padding:11px 14px}.floating-ticket strong{font-size:10px}
+.motion-toggle{position:absolute;right:18px;bottom:20px;z-index:7;display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid rgba(255,255,255,.24);border-radius:30px;background:rgba(33,19,49,.8);color:#fff5db;backdrop-filter:blur(12px);font-size:9px;font-weight:800;cursor:pointer;min-height:35px}
+.motion-toggle[hidden]{display:none}.motion-toggle:hover{background:#33204a}.motion-toggle:disabled{opacity:.8}
+.brand-icon{transition:transform .25s}.brand:hover .brand-icon{transform:rotate(5deg) translateY(-2px)}
+.section-header,.online-layout,.admin-card,.discord-cta{transition:opacity .65s ease,translate .65s ease;transition-delay:var(--reveal-delay,0ms)}
+.game-card{transition:opacity .65s ease,translate .65s ease,transform .2s ease,border-color .2s ease,box-shadow .2s ease;transition-delay:var(--reveal-delay,0ms),var(--reveal-delay,0ms),0ms,0ms,0ms}
+.reveal-pending{opacity:0;translate:0 26px}
+.game-icon{transition:transform .25s ease,background .25s ease}.game-card.is-selected .game-icon{transform:rotate(-9deg) scale(1.08);background:rgba(255,223,89,.16)}
+.game-card.is-voted{border-color:rgba(132,235,172,.65)}
+.vote-buttons{position:relative}.vote-celebration{position:absolute;right:65px;bottom:25px;z-index:10;width:0;height:0;pointer-events:none}
+.confetti-piece{position:absolute;width:8px;height:12px;border-radius:2px;background:var(--confetti-color);animation:vote-confetti 1.25s cubic-bezier(.16,.7,.3,1) forwards;font-size:20px;line-height:1}
+.confetti-piece:nth-child(4n+1){width:auto;height:auto;background:none}
+.motion-paused .reveal-pending{opacity:1;translate:none}
+.motion-paused *,.page-hidden *{animation-play-state:paused!important}
+.motion-paused .hero-copy{animation:none}
+@keyframes mascot-float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes star-drift{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -9px;rotate:12deg}}
+@keyframes ticket-drift{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes pattern-drift{to{background-position:16px 30px}}
+@keyframes hero-arrive{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+@keyframes vote-confetti{0%{opacity:1;transform:translate(0,0) rotate(0deg)}80%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--spin))}}
+@media(hover:hover){.game-card:hover .game-icon{transform:rotate(-7deg) translateY(-3px)}}
+@media(max-width:600px){.mascot-float{inset:38px -14px 5px}.top-art-label{font-size:8px;left:20px;top:18px}.floating-ticket{left:12px;bottom:21px;padding:8px 10px;font-size:8px}.floating-ticket strong{font-size:8px}.motion-toggle{right:12px;bottom:17px;font-size:8px;padding:7px 9px}.star-one{right:18px;top:20px}}
+@media(prefers-reduced-motion:reduce){.reveal-pending{opacity:1;translate:none}.hero-art{transform:none}.mascot-float,.floating-star,.floating-ticket{translate:none;rotate:none}}

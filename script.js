@@ -215,6 +215,7 @@
         if(ok!==true)throw new Error('Этот браузер уже голосовал в этом раунде.');
       }
       ownVote=selectedGame;safeStorageSet(storageKey,ownVote);showResults=true;
+      celebrateVote();
       setPollMessage(sharedPoll?'Голос принят и добавлен в общие результаты! 🍌':'Голос сохранён в твоём браузере. Для общего голосования подключи Supabase.');
       await loadVoteTotals();
     }catch(err){setPollMessage('Голос не отправлен: '+err.message,true)}
@@ -225,8 +226,70 @@
     toggle.addEventListener('click',()=>{const opened=nav.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(opened));});
     nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}));
   }
+  function celebrateVote(){
+    if(document.documentElement.classList.contains('motion-paused'))return;
+    const burst=makeEl('div','vote-celebration');
+    burst.setAttribute('aria-hidden','true');
+    for(let i=0;i<18;i++){
+      const piece=makeEl('span','confetti-piece',i%4===0?'🍌':'');
+      const angle=(i/18)*Math.PI*2;
+      piece.style.setProperty('--x',`${Math.cos(angle)*(100+i%3*45)}px`);
+      piece.style.setProperty('--y',`${Math.sin(angle)*120-70}px`);
+      piece.style.setProperty('--spin',`${i*47}deg`);
+      piece.style.setProperty('--confetti-color',i%2?'#a985fc':'#ffdf59');
+      burst.append(piece);
+    }
+    $('submit-vote').parentElement.append(burst);
+    setTimeout(()=>burst.remove(),1400);
+  }
+  function initMotion(){
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+    const root=document.documentElement,button=$('motion-toggle'),art=document.querySelector('.hero-art');
+    const motionKey='monkey-kingdom:motion';
+    let enabled=false,frame=0;
+    const resetTilt=()=>{art.style.setProperty('--tilt-x','0deg');art.style.setProperty('--tilt-y','0deg')};
+    const updateMotion=()=>{
+      enabled=!reduced.matches&&safeStorageGet(motionKey)!=='off';
+      root.classList.toggle('motion-paused',!enabled);
+      button.setAttribute('aria-pressed',String(enabled));
+      button.disabled=reduced.matches;
+      button.title=reduced.matches?'Уменьшение движения включено в системе':enabled?'Приостановить анимации':'Включить анимации';
+      button.replaceChildren(makeEl('span','',enabled?'Ⅱ':'▶'),document.createTextNode(reduced.matches?' Без движения':' Анимации'));
+      button.firstElementChild.setAttribute('aria-hidden','true');
+      resetTilt();
+    };
+    button.hidden=false;
+    button.addEventListener('click',()=>{safeStorageSet(motionKey,enabled?'off':'on');updateMotion()});
+    reduced.addEventListener('change',updateMotion);updateMotion();
+    const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-pending');observer.unobserve(entry.target)}});
+    },{threshold:0.08}):null;
+    if(observer&&enabled){
+      document.querySelectorAll('.section-header,.online-layout,.game-card,.admin-card,.discord-cta').forEach((element,i)=>{
+        // Only hide elements below the fold; first-screen content is always available.
+        if(element.getBoundingClientRect().top>=window.innerHeight){
+          element.classList.add('reveal-pending');element.style.setProperty('--reveal-delay',`${i%4*55}ms`);observer.observe(element);
+        }
+      });
+    }
+    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+      art.addEventListener('pointermove',event=>{
+        if(!enabled||frame)return;
+        frame=requestAnimationFrame(()=>{
+          frame=0;if(!enabled)return;
+          const bounds=art.getBoundingClientRect();
+          art.style.setProperty('--tilt-x',`${((event.clientY-bounds.top)/bounds.height-.5)*-5}deg`);
+          art.style.setProperty('--tilt-y',`${((event.clientX-bounds.left)/bounds.width-.5)*7}deg`);
+        });
+      });
+      art.addEventListener('pointerleave',()=>{cancelAnimationFrame(frame);frame=0;resetTilt()});
+    }
+    const syncVisibility=()=>root.classList.toggle('page-hidden',document.hidden);
+    document.addEventListener('visibilitychange',syncVisibility);syncVisibility();
+  }
   function init(){
     initNavigation();buildGames();renderAdmins();paintGameCards();loadVoteTotals();fetchDiscord();
+    initMotion();
     $('refresh-online').addEventListener('click',fetchDiscord);
     $('submit-vote').addEventListener('click',castVote);
     $('show-results').addEventListener('click',()=>{showResults=!showResults;paintGameCards();if(showResults&&sharedPoll)loadVoteTotals()});

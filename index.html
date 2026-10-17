@@ -8,12 +8,14 @@
   <meta property="og:title" content="MONKEY KINGDOM — банановое королевство">
   <meta property="og:description" content="Залетай в джунгли. Голосуй за игру. Играй со стаей.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://bbzteamsuport-glitch.github.io/monkey-kingdom/assets/monkey-king-3d.webp">
   <title>Monkey Kingdom — Банановое королевство</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="preload" as="image" href="assets/monkey-king-3d.webp" fetchpriority="high">
   <script defer src="config.js"></script>
   <script defer src="script.js"></script>
 </head>
@@ -53,9 +55,9 @@
         <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
         <span class="floating-star star-one" aria-hidden="true">✦</span><span class="floating-star star-two" aria-hidden="true">✳</span>
         <span class="top-art-label">ROYAL<br>GAMING<br>CLUB</span>
-        <img class="monkey-illustration" src="assets/monkey-king.svg" alt="Обезьяна-король с золотой короной, игровыми наушниками и бананом">
+        <div class="mascot-float"><img class="monkey-illustration" src="assets/monkey-king-3d.webp" width="1000" height="942" fetchpriority="high" decoding="async" alt="Улыбающийся король обезьян в золотой короне, фиолетовых наушниках и очках, с бананом"></div>
         <div class="floating-ticket"><span class="ticket-icon">⚡</span><span>ТВОЯ СТАЯ<br><strong>УЖЕ ЗДЕСЬ</strong></span></div>
-        <div class="art-caption">NO MONKEY LEFT BEHIND <span>★</span></div>
+        <button class="motion-toggle" id="motion-toggle" type="button" aria-label="Анимации" aria-pressed="true" hidden><span aria-hidden="true">Ⅱ</span> Анимации</button>
       </div>
     </section>
 
