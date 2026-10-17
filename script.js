@@ -81,17 +81,17 @@
       if(member && safeAvatar(member.avatar_url))addAvatar(avatar,member,a.emoji||'🐵');
       else avatar.textContent=a.emoji||'🐵';
       const info=makeEl('div'),role=makeEl('div','admin-role',a.role||'Администрация');
-      const name=makeEl('div','admin-name',username||'Никнейм не указан');
+      const name=makeEl('div','admin-name',username||'Скоро здесь');
       info.append(role,name);top.append(avatar,info);item.append(top,makeEl('div','admin-line'));
       const presence=makeEl('div','admin-presence');
-      if(!username){presence.textContent='Ожидает настройки';}
+      if(!username){presence.textContent='Состав команды обновляется';}
       else if(member){presence.textContent=statusCaption(member.status);presence.classList.add(['online','idle','dnd'].includes(member.status)?member.status:'online')}
       else presence.textContent=discordReady?'Нет в публичном списке':'Статус недоступен';
       item.append(presence);box.append(item);
     });
     $('admin-note').textContent=admins.length
       ? 'Если администратора нет в виджете, это не обязательно значит, что он офлайн: Discord показывает не всех участников (максимум 100).'
-      : 'Укажи настоящие Discord username администраторов в config.js — здесь появятся имена и их доступные статусы.';
+      : 'Здесь появятся участники команды королевства и их доступные статусы.';
   }
 
   async function fetchDiscord(){
@@ -106,7 +106,7 @@
       discordReady=true;
       $('online-count').textContent=String(data.presence_count);
       $('hero-online').textContent=String(data.presence_count);
-      $('visible-caption').textContent=`Видно ${latestMembers.length} (до 100)`;
+      $('visible-caption').textContent=`Показано ${Math.min(latestMembers.length,24)} из ${latestMembers.length} в публичном списке`;
       $('last-updated').textContent='Обновлено в '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})+' · автообновление раз в 60 сек.';
       $('live-label').textContent='ДАННЫЕ DISCORD';
       $('live-indicator').className='live-badge is-live';
@@ -115,7 +115,7 @@
       discordReady=false;latestMembers=[];
       $('online-count').textContent='—';$('hero-online').textContent='—';
       $('visible-caption').textContent='Данные недоступны';
-      $('last-updated').textContent='Открой Discord-виджет внизу страницы';
+      $('last-updated').textContent='Официальный виджет доступен по ссылке внизу страницы';
       $('live-label').textContent='НЕТ ДАННЫХ';$('live-indicator').className='live-badge is-error';
       console.warn('Discord Widget API:',err.message);
     }finally{
@@ -244,10 +244,36 @@
   }
   function initMotion(){
     const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-    const root=document.documentElement,button=$('motion-toggle'),art=document.querySelector('.hero-art');
+    const root=document.documentElement,button=$('motion-toggle'),hero=document.querySelector('.hero');
     const motionKey='monkey-kingdom:motion';
     let enabled=false,frame=0;
-    const resetTilt=()=>{art.style.setProperty('--tilt-x','0deg');art.style.setProperty('--tilt-y','0deg')};
+    const layers=Array.from(document.querySelectorAll('[data-parallax]'));
+    const sections=Array.from(document.querySelectorAll('main > section[id]'));
+    const links=Array.from(document.querySelectorAll('.site-nav a'));
+    const renderScroll=()=>{
+      frame=0;
+      const scrollTop=Math.max(0,window.scrollY);
+      const viewport=window.innerHeight;
+      const range=Math.max(1,root.scrollHeight-viewport);
+      // Read geometry before writing transforms; never intercept wheel or touch input.
+      const bounds=layers.map(element=>element.getBoundingClientRect());
+      const sectionBounds=sections.map(element=>element.getBoundingClientRect());
+      const heroProgress=Math.min(1,scrollTop/Math.max(1,hero.offsetHeight));
+      const previousShifts=layers.map(element=>parseFloat(element.style.getPropertyValue('--parallax-shift'))||0);
+      root.style.setProperty('--scroll-progress',String(Math.min(1,scrollTop/range)));
+      root.classList.toggle('is-scrolled',scrollTop>24);
+      root.style.setProperty('--hero-shift',enabled?`${heroProgress*65}px`:'0px');
+      root.style.setProperty('--title-shift',enabled?`${heroProgress*(window.innerWidth<601?8:34)}px`:'0px');
+      layers.forEach((element,i)=>{
+        const amount=Number(element.dataset.parallax)||0;
+        const progress=Math.max(-1,Math.min(1,(viewport/2-(bounds[i].top-previousShifts[i]+bounds[i].height/2))/viewport));
+        element.style.setProperty('--parallax-shift',enabled?`${progress*amount}px`:'0px');
+      });
+      let active='';
+      sectionBounds.forEach((bounds,i)=>{if(bounds.top<=viewport*.4)active='#'+sections[i].id});
+      links.forEach(link=>{if(link.getAttribute('href')===active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')});
+    };
+    const scheduleScroll=()=>{if(!frame&&!document.hidden)frame=requestAnimationFrame(renderScroll)};
     const updateMotion=()=>{
       enabled=!reduced.matches&&safeStorageGet(motionKey)!=='off';
       root.classList.toggle('motion-paused',!enabled);
@@ -256,36 +282,30 @@
       button.title=reduced.matches?'Уменьшение движения включено в системе':enabled?'Приостановить анимации':'Включить анимации';
       button.replaceChildren(makeEl('span','',enabled?'Ⅱ':'▶'),document.createTextNode(reduced.matches?' Без движения':' Анимации'));
       button.firstElementChild.setAttribute('aria-hidden','true');
-      resetTilt();
+      if(!enabled)document.querySelectorAll('.reveal-pending').forEach(element=>element.classList.remove('reveal-pending'));
+      scheduleScroll();
     };
     button.hidden=false;
     button.addEventListener('click',()=>{safeStorageSet(motionKey,enabled?'off':'on');updateMotion()});
     reduced.addEventListener('change',updateMotion);updateMotion();
     const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{
       entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-pending');observer.unobserve(entry.target)}});
-    },{threshold:0.08}):null;
+    },{threshold:0.06,rootMargin:'0px 0px -24px 0px'}):null;
     if(observer&&enabled){
-      document.querySelectorAll('.section-header,.online-layout,.game-card,.admin-card,.discord-cta').forEach((element,i)=>{
-        // Only hide elements below the fold; first-screen content is always available.
+      document.querySelectorAll('.section-header,.about-lead,.about-poster,.about-copy,.stat-block,.online-main,.online-aside,.game-card,.admin-grid,.team-note,.discord-copy,.footer-wordmark,.footer-inner').forEach((element,i)=>{
+        element.classList.add('motion-reveal');
         if(element.getBoundingClientRect().top>=window.innerHeight){
-          element.classList.add('reveal-pending');element.style.setProperty('--reveal-delay',`${i%4*55}ms`);observer.observe(element);
+          element.classList.add('reveal-pending');element.style.setProperty('--reveal-delay',`${i%3*65}ms`);observer.observe(element);
         }
       });
     }
-    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-      art.addEventListener('pointermove',event=>{
-        if(!enabled||frame)return;
-        frame=requestAnimationFrame(()=>{
-          frame=0;if(!enabled)return;
-          const bounds=art.getBoundingClientRect();
-          art.style.setProperty('--tilt-x',`${((event.clientY-bounds.top)/bounds.height-.5)*-5}deg`);
-          art.style.setProperty('--tilt-y',`${((event.clientX-bounds.left)/bounds.width-.5)*7}deg`);
-        });
-      });
-      art.addEventListener('pointerleave',()=>{cancelAnimationFrame(frame);frame=0;resetTilt()});
-    }
-    const syncVisibility=()=>root.classList.toggle('page-hidden',document.hidden);
+    window.addEventListener('scroll',scheduleScroll,{passive:true});
+    window.addEventListener('resize',scheduleScroll,{passive:true});
+    window.addEventListener('load',scheduleScroll,{once:true});
+    const syncVisibility=()=>{root.classList.toggle('page-hidden',document.hidden);if(!document.hidden)scheduleScroll()};
     document.addEventListener('visibilitychange',syncVisibility);syncVisibility();
+    if('ResizeObserver' in window)new ResizeObserver(scheduleScroll).observe(document.body);
+    document.fonts?.ready.then(scheduleScroll);
   }
   function init(){
     initNavigation();buildGames();renderAdmins();paintGameCards();loadVoteTotals();fetchDiscord();
