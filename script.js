@@ -11,18 +11,18 @@
   const visitorKey = 'monkey-kingdom:visitor';
   const $ = (id) => document.getElementById(id);
   const games = [
-    { id:'cs2', name:'Counter-Strike 2', kind:'Tactical FPS', icon:'🎯', glow:'#edb96b' },
-    { id:'hoi4', name:'Hearts of Iron IV', kind:'Стратегия', icon:'🪖', glow:'#91bb91' },
-    { id:'rocket', name:'Rocket League', kind:'Спорт / гонки', icon:'🚀', glow:'#648fef' },
-    { id:'minecraft', name:'Minecraft', kind:'Песочница', icon:'⛏️', glow:'#8abd63' },
-    { id:'fortnite', name:'Fortnite', kind:'Battle Royale', icon:'🪂', glow:'#c087ec' },
-    { id:'valorant', name:'VALORANT', kind:'Tactical FPS', icon:'⚡', glow:'#ee767e' },
-    { id:'gta', name:'GTA Online', kind:'Открытый мир', icon:'🚗', glow:'#ebb85f' },
-    { id:'roblox', name:'Roblox', kind:'Платформа', icon:'🧱', glow:'#e87777' },
-    { id:'phasmophobia', name:'Phasmophobia', kind:'Хоррор / кооператив', icon:'👻', glow:'#82b2ec' },
-    { id:'repo', name:'R.E.P.O.', kind:'Хоррор / кооператив', icon:'🤖', glow:'#a6df82' },
-    { id:'lethal', name:'Lethal Company', kind:'Кооператив', icon:'☢️', glow:'#deb572' },
-    { id:'pubg', name:'PUBG', kind:'Battle Royale', icon:'🪖', glow:'#e1b162' }
+    { id:'cs2', name:'Counter-Strike 2', kind:'Tactical FPS', glow:'#edb96b' },
+    { id:'hoi4', name:'Hearts of Iron IV', kind:'Стратегия', glow:'#a4b9a0' },
+    { id:'rocket', name:'Rocket League', kind:'Спорт / гонки', glow:'#83aff5' },
+    { id:'minecraft', name:'Minecraft', kind:'Песочница', glow:'#95c67d' },
+    { id:'fortnite', name:'Fortnite', kind:'Battle Royale', glow:'#bc9bf0' },
+    { id:'valorant', name:'VALORANT', kind:'Tactical FPS', glow:'#f17b86' },
+    { id:'gta', name:'GTA Online', kind:'Открытый мир', glow:'#9ccca1' },
+    { id:'roblox', name:'Roblox', kind:'Платформа', glow:'#d3d6e4' },
+    { id:'phasmophobia', name:'Phasmophobia', kind:'Хоррор / кооператив', glow:'#8ac3d9' },
+    { id:'repo', name:'R.E.P.O.', kind:'Хоррор / кооператив', glow:'#b1d999' },
+    { id:'lethal', name:'Lethal Company', kind:'Кооператив', glow:'#dc957c' },
+    { id:'pubg', name:'PUBG', kind:'Battle Royale', glow:'#e1bd77' }
   ];
 
   let latestMembers = [];
@@ -38,6 +38,13 @@
   function makeEl(tag, className, text) {
     const e=document.createElement(tag); if(className)e.className=className; if(text!==undefined)e.textContent=String(text); return e;
   }
+  function makeIcon(name,className=''){
+    const ns='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(ns,'svg'),use=document.createElementNS(ns,'use');
+    svg.setAttribute('viewBox','0 0 64 64');svg.setAttribute('fill','none');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
+    if(className)svg.setAttribute('class',className);
+    use.setAttribute('href',`assets/game-icons.svg#${name}`);svg.append(use);return svg;
+  }
   const normalize = s => String(s||'').trim().toLocaleLowerCase();
   const safeAvatar = s => typeof s==='string' && /^https:\/\/(?:cdn\.discordapp\.com|media\.discordapp\.net)\//.test(s) ? s : null;
 
@@ -52,10 +59,10 @@
   function statusCaption(status){
     switch(status){case 'online':return 'В сети';case 'idle':return 'Отошёл';case 'dnd':return 'Не беспокоить';default:return 'В сети';}
   }
-  function addAvatar(parent, member, fallback='🐵'){
+  function addAvatar(parent, member){
     const avatar=safeAvatar(member?.avatar_url);
     if(avatar){const img=makeEl('img');img.src=avatar;img.alt='';img.loading='lazy';img.referrerPolicy='no-referrer';parent.append(img)}
-    else parent.append(makeEl('span','member-avatar',fallback));
+    else parent.append(makeEl('span','member-avatar',String(member?.username||'MK').slice(0,1).toLocaleUpperCase()));
   }
   function renderMembers(){
     const target=$('members-list');target.replaceChildren();
@@ -63,23 +70,23 @@
     if(!latestMembers.length){target.append(makeEl('p','muted-message','В публичном списке никого не видно.'));return;}
     latestMembers.slice(0,24).forEach(member=>{
       const item=makeEl('div','member');item.title=member.username||'Участник';
-      addAvatar(item,member,'🐵');item.append(makeEl('span','member-name',member.username||'Участник'));target.append(item);
+      addAvatar(item,member);item.append(makeEl('span','member-name',member.username||'Участник'));target.append(item);
     });
   }
   function renderAdmins(){
     const box=$('admin-grid');box.replaceChildren();
     const placeholders=[
-      {role:'КОРОЛЬ ДЖУНГЛЕЙ',emoji:'👑'},
-      {role:'КОРОЛЕВСКИЙ СОВЕТНИК',emoji:'🍌'},
-      {role:'СТРАЖ ПОРЯДКА',emoji:'🛡️'}
+      {role:'КОРОЛЬ ДЖУНГЛЕЙ'},
+      {role:'КОРОЛЕВСКИЙ СОВЕТНИК'},
+      {role:'СТРАЖ ПОРЯДКА'}
     ];
     const source=admins.length ? admins : placeholders;
-    source.forEach(a=>{
+    source.forEach((a,index)=>{
       const item=makeEl('div','admin-card'),top=makeEl('div','admin-top'),avatar=makeEl('div','admin-avatar');
       const username=String(a.username||'');
       const member=latestMembers.find(m=>normalize(m.username)===normalize(username) || (Array.isArray(a.aliases)&&a.aliases.some(x=>normalize(x)===normalize(m.username))));
-      if(member && safeAvatar(member.avatar_url))addAvatar(avatar,member,a.emoji||'🐵');
-      else avatar.textContent=a.emoji||'🐵';
+      if(member && safeAvatar(member.avatar_url))addAvatar(avatar,member);
+      else avatar.append(makeIcon(['crown','council','shield'][index%3]));
       const info=makeEl('div'),role=makeEl('div','admin-role',a.role||'Администрация');
       const name=makeEl('div','admin-name',username||'Скоро здесь');
       info.append(role,name);top.append(avatar,info);item.append(top,makeEl('div','admin-line'));
@@ -171,7 +178,8 @@
     games.forEach(g=>{
       const card=makeEl('button','game-card');card.type='button';card.dataset.game=g.id;card.style.setProperty('--game-glow',g.glow);
       card.setAttribute('aria-pressed','false');card.setAttribute('aria-label','Выбрать '+g.name);
-      const top=makeEl('div','game-top'),icon=makeEl('span','game-icon',g.icon),check=makeEl('span','game-check','✓');
+      const top=makeEl('div','game-top'),icon=makeEl('span','game-icon'),check=makeEl('span','game-check','✓');
+      icon.setAttribute('aria-hidden','true');icon.append(makeIcon(g.id));
       check.setAttribute('aria-hidden','true');top.append(icon,check);
       const bottom=makeEl('div','game-bottom');bottom.append(makeEl('span','game-kind',g.kind),makeEl('span','game-name',g.name));
       const result=makeEl('div','game-result'),line=makeEl('div','result-row');
@@ -216,7 +224,7 @@
       }
       ownVote=selectedGame;safeStorageSet(storageKey,ownVote);showResults=true;
       celebrateVote();
-      setPollMessage(sharedPoll?'Голос принят и добавлен в общие результаты! 🍌':'Голос сохранён в твоём браузере. Для общего голосования подключи Supabase.');
+      setPollMessage(sharedPoll?'Голос принят и добавлен в общие результаты!':'Голос сохранён в твоём браузере. Для общего голосования подключи Supabase.');
       await loadVoteTotals();
     }catch(err){setPollMessage('Голос не отправлен: '+err.message,true)}
     finally{loadingVote=false;paintGameCards()}
@@ -231,7 +239,7 @@
     const burst=makeEl('div','vote-celebration');
     burst.setAttribute('aria-hidden','true');
     for(let i=0;i<18;i++){
-      const piece=makeEl('span','confetti-piece',i%4===0?'🍌':'');
+      const piece=makeEl('span','confetti-piece');
       const angle=(i/18)*Math.PI*2;
       piece.style.setProperty('--x',`${Math.cos(angle)*(100+i%3*45)}px`);
       piece.style.setProperty('--y',`${Math.sin(angle)*120-70}px`);

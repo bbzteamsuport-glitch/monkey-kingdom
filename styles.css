@@ -33,3 +33,17 @@ a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}button,a
 @media(min-width:791px){.hero::before{background:linear-gradient(90deg,rgba(14,12,24,.85),rgba(14,12,24,.6) 42%,rgba(14,12,24,.2) 68%,transparent 90%),linear-gradient(0deg,#0e0c18,transparent 26%,transparent 80%,rgba(14,12,24,.35))}}
 @media(max-width:600px){.hero-description,.section-header p,.about-copy>p,.discord-copy p{font-size:11px}.about-rule p{font-size:10px}.member{font-size:10px}.online-bottom>span{font-size:9px}.panel-subtitle span{font-size:9px}.team-note{font-size:10px}.site-nav a{font-size:12px}.toolbar-text strong{font-size:11px}.toolbar-text span{font-size:10px}.poll-message{font-size:10px}}
 @media(max-width:600px){.about-poster img{width:150%;left:-25%;bottom:20px}}
+
+/* Full-length supplied portrait: preserve its entire frame at every breakpoint. */
+.about-poster{height:auto;aspect-ratio:3/4;background:#402066;align-self:center}
+.about-poster img{position:static;width:100%;height:100%;max-width:100%;object-fit:contain}
+.game-icon{display:grid;place-items:center;width:62px;height:62px;padding:9px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.015));color:var(--game-glow);filter:none;box-shadow:inset 0 1px rgba(255,255,255,.05)}
+.game-icon svg{display:block;width:100%;height:100%;overflow:visible}
+.game-card{min-height:228px}.game-card.is-selected .game-icon{border-color:var(--yellow);background:rgba(236,210,117,.09)}
+.ui-icon{display:block;width:32px;height:32px;color:var(--yellow)}.banana-stamp .ui-icon{width:48px;height:48px}.team-crown .ui-icon{width:76px;height:76px}.admin-avatar svg{width:30px;height:30px;color:var(--yellow)}
+.confetti-piece:nth-child(4n+1){width:6px;height:10px;background:var(--confetti-color)}
+.hero h1,.about-lead .display-title,.about-copy h3,.online-aside h3,.discord-copy h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;letter-spacing:-1.6px;line-height:1.03}
+.hero h1 em,.about-lead .display-title em,.about-copy h3 em,.online-aside h3 em,.discord-copy h2 span{font-family:inherit;font-weight:400;font-style:italic}
+.hero h1{font-size:clamp(58px,7.3vw,118px)}.title-last{font-size:.88em}.about-lead .display-title{font-size:clamp(40px,4.5vw,69px)}.about-copy h3{font-size:clamp(30px,3.2vw,46px)}.online-aside h3{font-size:clamp(34px,3.4vw,48px)}
+@media(max-width:790px){.hero h1{font-size:8.6vw}.about-copy h3{font-size:40px}.about-lead .display-title{font-size:49px}.discord-copy h2{font-size:54px}}
+@media(max-width:600px){.about-section{grid-template-columns:1fr}.about-lead{height:auto}.about-lead .display-title{font-size:52px;line-height:.98;margin:3px 0 22px}.about-index{padding-top:20px}.about-poster{width:100%;max-width:360px;justify-self:center;margin-top:12px;aspect-ratio:3/4;height:auto}.about-poster img{position:static;width:100%;height:100%;max-width:100%;object-fit:contain}.about-copy{grid-column:1;grid-template-columns:1fr;margin-top:12px}.about-copy h3{font-size:40px}.about-copy .btn,.about-copy .section-kicker,.about-copy h3,.about-rule{grid-column:1}.hero h1{font-size:9.8vw;letter-spacing:-.6px;line-height:1.12}.title-last{font-size:.9em}.discord-copy h2{font-size:51px;letter-spacing:-1.2px}.online-aside h3{font-size:39px}.game-icon{width:52px;height:52px;padding:8px;border-radius:10px}.game-card{min-height:200px}.team-crown .ui-icon{width:54px;height:54px}}

@@ -14,8 +14,8 @@ window.MONKEY_CONFIG = {
   // При совпадении с публичным списком виджета будет показан статус.
   // Пример (уберите // и замените на настоящие никнеймы):
   // admins: [
-  //   { username: "your_admin", role: "Король джунглей", emoji: "👑" },
-  //   { username: "your_mod", role: "Главный страж", emoji: "🛡️" }
+  //   { username: "your_admin", role: "Король джунглей" },
+  //   { username: "your_mod", role: "Главный страж" }
   // ],
   admins: [],
 

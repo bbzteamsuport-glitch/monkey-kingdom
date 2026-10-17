@@ -23,9 +23,9 @@
 
 ```js
 admins: [
-  { username: "NICK_1", role: "Король джунглей", emoji: "👑" },
-  { username: "NICK_2", role: "Главный страж", emoji: "🛡️" },
-  { username: "NICK_3", role: "Модератор", emoji: "⚡", aliases: ["alt_name"] }
+  { username: "NICK_1", role: "Король джунглей" },
+  { username: "NICK_2", role: "Главный страж" },
+  { username: "NICK_3", role: "Модератор", aliases: ["alt_name"] }
 ],
 ```
 
@@ -73,7 +73,9 @@ https://bbzteamsuport-glitch.github.io/monkey-kingdom/.
 
 ## Иллюстрация и анимации
 
-Иллюстрации созданы встроенным ImageGen: прозрачный персонаж `assets/monkey-king-3d.webp` для постера и кинематографичный фон `assets/kingdom-editorial.webp` для первого и последнего экранов. Исходная SVG-иконка сохранена для логотипа и favicon. Промпты находятся рядом с изображениями в файлах `.prompt.md`. Шрифты: Jost для тонких заголовков и Manrope для основного текста.
+В постере используется присланное пользователем изображение персонажа в полный рост — `assets/monkey-king-fullbody.webp`. Пропорции 3:4 сохраняются без обрезки, включая мобильную версию. Кинематографичный фон `assets/kingdom-editorial.webp` для первого и последнего экранов создан ImageGen; его промпт находится рядом в файле `.prompt.md`. Исходная SVG-иконка сохранена для логотипа и favicon.
+
+Для вдохновляющих фраз используется Cormorant Garamond с курсивными акцентами, для интерфейса — Jost и Manrope. Все 12 игровых эмблем и декоративные значки собраны в локальном SVG-спрайте `assets/game-icons.svg`. Стандартные эмоджи в интерфейсе не используются; у участников без доступного аватара отображается первая буква имени, у команды — векторный значок.
 
 Анимации секций и подтверждения голоса работают без дополнительных библиотек. При прокрутке двигаются фон, строки главного заголовка и постер; верхняя линия показывает прогресс, а навигация выделяет текущий раздел. Обработчик `scroll` пассивный, изменения объединены через `requestAnimationFrame`. События колеса и свайпы не перехватываются.
 
@@ -84,8 +86,8 @@ https://bbzteamsuport-glitch.github.io/monkey-kingdom/.
 В локальной копии после проверки изменений:
 
 ```powershell
-git add index.html styles.css script.js README.md assets/kingdom-editorial.webp assets/kingdom-editorial.prompt.md
-git commit -m "Redesign Monkey Kingdom and fix native scrolling"
+git add index.html styles.css script.js config.js README.md assets/game-icons.svg assets/monkey-king-fullbody.webp
+git commit -m "Use supplied portrait and replace emoji with SVG game emblems"
 git push origin main
 ```
 
@@ -105,6 +107,8 @@ monkey-kingdom/
 │   ├── monkey-king.svg
 │   ├── monkey-king-3d.webp
 │   ├── monkey-king-3d.prompt.md
+│   ├── monkey-king-fullbody.webp
+│   ├── game-icons.svg
 │   ├── kingdom-editorial.webp
 │   └── kingdom-editorial.prompt.md
 ├── .nojekyll
