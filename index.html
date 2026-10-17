@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#150d2a">
+  <meta name="description" content="Monkey Kingdom — банановое королевство геймеров. Узнай, кто сейчас онлайн, выбирай игру для следующей катки и знакомься с администрацией.">
+  <meta property="og:title" content="MONKEY KINGDOM — банановое королевство">
+  <meta property="og:description" content="Залетай в джунгли. Голосуй за игру. Играй со стаей.">
+  <meta property="og:type" content="website">
+  <title>Monkey Kingdom — Банановое королевство</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="config.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a href="#top" class="brand" aria-label="Monkey Kingdom — на главную">
+        <img src="assets/favicon.svg" alt="" class="brand-icon" width="46" height="46">
+        <span class="brand-text">MONKEY <span>KINGDOM</span><small>THE BANANA REPUBLIC</small></span>
+      </a>
+      <button class="mobile-menu-toggle" id="menu-toggle" type="button" aria-label="Открыть меню" aria-controls="site-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="site-nav" id="site-navigation" aria-label="Основная навигация">
+        <a href="#online">Онлайн</a><a href="#vote">Опрос</a><a href="#admins">Администрация</a>
+      </nav>
+      <a class="header-join btn btn-small btn-yellow" href="#discord" id="header-join">В наш Discord <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="pill eyebrow"><span class="pill-dot"></span> ГЕЙМЕРСКОЕ КОРОЛЕВСТВО • EST. 2026</div>
+        <h1 id="hero-title">ЗДЕСЬ<br>ПРАВИТ <span>СТАЯ<span class="title-spark">✳</span></span></h1>
+        <p class="hero-description">Одно королевство. Сотни эпичных каток. Собирай друзей, выбирай следующую игру и становись легендой наших джунглей.</p>
+        <div class="hero-actions">
+          <a href="#vote" class="btn btn-yellow btn-large">🍌 Выбрать игру <span aria-hidden="true">↗</span></a>
+          <a href="#online" class="btn btn-ghost btn-large">Кто сейчас онлайн <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-footnote"><span class="mini-crown">♛</span> Вход свободный. Бананы приветствуются.</div>
+      </div>
+      <div class="hero-art" aria-label="Иллюстрация короля обезьян в короне">
+        <div class="hero-art-pattern"></div>
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <span class="floating-star star-one" aria-hidden="true">✦</span><span class="floating-star star-two" aria-hidden="true">✳</span>
+        <span class="top-art-label">ROYAL<br>GAMING<br>CLUB</span>
+        <img class="monkey-illustration" src="assets/monkey-king.svg" alt="Обезьяна-король с золотой короной, игровыми наушниками и бананом">
+        <div class="floating-ticket"><span class="ticket-icon">⚡</span><span>ТВОЯ СТАЯ<br><strong>УЖЕ ЗДЕСЬ</strong></span></div>
+        <div class="art-caption">NO MONKEY LEFT BEHIND <span>★</span></div>
+      </div>
+    </section>
+
+    <section class="quick-stats shell" aria-label="Статистика сервера">
+      <div class="stat-block"><span class="stat-symbol">●</span><div><strong id="hero-online">—</strong><span>обезьян онлайн</span></div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-block"><span class="stat-symbol">♛</span><div><strong id="hero-games">12</strong><span>игр на выбор</span></div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-block"><span class="stat-symbol">✳</span><div><strong id="hero-votes">0</strong><span>голосов в опросе</span></div></div>
+      <div class="stat-cta">ДА ПРИБУДЕТ С НАМИ <strong>БАНАН! 🍌</strong></div>
+    </section>
+
+    <section class="section shell online-section" id="online" aria-labelledby="online-title">
+      <div class="section-header">
+        <div><span class="section-kicker">01 / СТАТУС КОРОЛЕВСТВА</span><h2 id="online-title">КТО В <span>ДЖУНГЛЯХ?</span></h2><p>Прямо сейчас на нашем Discord-сервере.</p></div>
+        <span class="live-badge" id="live-indicator"><span class="live-dot"></span><span id="live-label">ПОДКЛЮЧАЕМСЯ...</span></span>
+      </div>
+      <div class="online-layout">
+        <div class="online-main card-panel">
+          <div class="online-head"><div><span class="tiny-label">ОНЛАЙН УЧАСТНИКОВ</span><div class="big-online"><strong id="online-count">—</strong><span class="signal-icon" aria-hidden="true"><i></i><i></i><i></i></span></div></div><div class="banana-stamp" aria-hidden="true">🍌</div></div>
+          <div class="online-separator"></div>
+          <div class="panel-subtitle"><strong>Сейчас на связи</strong><span id="visible-caption">Проверяем Discord...</span></div>
+          <div class="members-list" id="members-list" aria-live="polite"><p class="muted-message">Загружаем участников...</p></div>
+          <div class="online-bottom"><span id="last-updated">Данные обновляются автоматически</span><button class="text-action" id="refresh-online" type="button">Обновить <span aria-hidden="true">↻</span></button></div>
+        </div>
+        <aside class="online-aside card-panel">
+          <div class="aside-top-tag">YOUR NEXT ADVENTURE</div>
+          <div class="aside-big-emoji" aria-hidden="true">👾</div>
+          <h3>ЗАХОДИ<br>В ГОЛОСОВОЙ!</h3>
+          <p>Самые угарные моменты начинаются с одного «ну что, катку?»</p>
+          <a href="#discord" class="btn btn-white" id="online-join">Присоединиться к стае <span aria-hidden="true">↗</span></a>
+          <span class="aside-deco" aria-hidden="true">✳</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section shell vote-section" id="vote" aria-labelledby="vote-title">
+      <div class="section-header vote-heading"><div><span class="section-kicker">02 / НАРОДНОЕ ГОЛОСОВАНИЕ</span><h2 id="vote-title">ЧТО <span>КАТАЕМ?</span></h2><p>Король спрашивает: во что играет стая сегодня? Выбирай один вариант.</p></div><div class="vote-note"><span>🍌</span> ТВОЙ ГОЛОС<br>ИМЕЕТ ВЕС</div></div>
+      <div class="poll-banner"><span class="poll-banner-label">ОПРОС СТАИ <span class="poll-circle"></span></span><span id="poll-mode-text">Проверяем настройки голосования...</span><span id="poll-vote-number">0 ГОЛОСОВ</span></div>
+      <div id="game-grid" class="game-grid" role="group" aria-label="Выберите одну игру"></div>
+      <div class="vote-toolbar card-panel">
+        <div class="toolbar-text"><div class="toolbar-icon">👑</div><div><strong id="vote-hint">Одна обезьяна — один голос.</strong><span id="vote-description">Выбери игру выше и нажми кнопку.</span></div></div>
+        <div class="vote-buttons"><button type="button" class="btn btn-outline" id="show-results">Результаты <span aria-hidden="true">↗</span></button><button type="button" class="btn btn-yellow" id="submit-vote" disabled>Голосовать <span aria-hidden="true">→</span></button></div>
+      </div>
+      <p class="poll-message" id="poll-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="section shell team-section" id="admins" aria-labelledby="admins-title">
+      <div class="section-header"><div><span class="section-kicker">03 / КОРОЛЕВСКИЙ СОВЕТ</span><h2 id="admins-title">ХРАНИТЕЛИ <span>ТРОНА</span></h2><p>Те, кто следит, чтобы в нашем королевстве царил весёлый хаос, а не обычный.</p></div><div class="team-crown" aria-hidden="true">♛</div></div>
+      <div id="admin-grid" class="admin-grid" aria-live="polite"></div>
+      <p class="team-note" id="admin-note">Статусы администрации сверяются с публичным списком Discord, если участник в нём виден.</p>
+    </section>
+
+    <section class="section shell discord-section" id="discord" aria-labelledby="discord-title">
+      <div class="discord-cta">
+        <div class="discord-copy"><span class="section-kicker">04 / ВХОД В КОРОЛЕВСТВО</span><h2 id="discord-title">В ДЖУНГЛЯХ<br><span>ТЕБЯ ЖДУТ.</span></h2><p>Хватит смотреть на бананы снаружи. Врывайся в Discord, находи команду и забирай своё место на троне.</p><a href="#discord-widget" class="btn btn-yellow" id="footer-join">Открыть Discord <span aria-hidden="true">↗</span></a><div class="discord-decoration">🍌 <span>✦</span> 🍌</div></div>
+        <div class="widget-wrapper"><div class="widget-title"><span class="widget-light"></span><strong>DISCORD / COMMUNITY</strong><span class="widget-window-controls">● ● ●</span></div><iframe id="discord-widget" title="Виджет Discord-сервера Monkey Kingdom" src="https://discord.com/widget?id=1286370837074804799&amp;theme=dark" loading="lazy" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" referrerpolicy="no-referrer" width="350" height="360"></iframe></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="shell footer-inner"><a href="#top" class="footer-brand">🐵 MONKEY KINGDOM <span>®</span></a><span>СДЕЛАНО С ЛЮБОВЬЮ К БАНАНАМ И ХОРОШИМ КАТКАМ.</span><a href="#top">НАВЕРХ ↑</a></div></footer>
+</body>
+</html>
