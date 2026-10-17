@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="760" viewBox="0 0 760 760" role="img" aria-label="Мультяшный король обезьян с короной, наушниками и бананом">
+<defs>
+ <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#FFEC7B"/><stop offset=".55" stop-color="#F9BE29"/><stop offset="1" stop-color="#EA9421"/></linearGradient>
+ <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#B97842"/><stop offset=".58" stop-color="#88502D"/><stop offset="1" stop-color="#552A2D"/></linearGradient>
+ <linearGradient id="soft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFDFA0"/><stop offset="1" stop-color="#DB9359"/></linearGradient>
+ <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8C57D7"/><stop offset="1" stop-color="#462273"/></linearGradient>
+ <linearGradient id="banana" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFEC7A"/><stop offset="1" stop-color="#ECAA17"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="175%"><feDropShadow dx="0" dy="24" stdDeviation="16" flood-color="#371459" flood-opacity=".35"/></filter>
+</defs>
+<!-- yellow comic bursts -->
+<g fill="none" stroke="#F9D952" stroke-width="9" stroke-linecap="round" opacity=".65"><path d="M158 206l-40-21M207 112l-22-48M543 116l27-42M639 220l45-23M621 487l48 22M143 484l-47 27"/></g>
+<!-- tail -->
+<path d="M554 543c126-58 127 105 34 91-42-6-26-46-5-43" fill="none" stroke="#5F3154" stroke-width="40" stroke-linecap="round"/>
+<!-- shoulders hoodie -->
+<g filter="url(#shadow)"><path d="M129 675c0-138 92-211 252-211 169 0 264 73 264 211v64H129Z" fill="url(#hoodie)" stroke="#371B64" stroke-width="15"/><path d="M285 513c23 52 83 73 97 79 22-6 83-27 105-79" fill="#B67BF4" stroke="#3A1C63" stroke-width="13" stroke-linejoin="round"/><path d="M350 591l-14 72M427 591l16 72" stroke="#F8D85E" stroke-width="14" stroke-linecap="round"/></g>
+<!-- ears -->
+<g stroke="#633621" stroke-width="14"><circle cx="183" cy="350" r="84" fill="url(#fur)"/><circle cx="575" cy="350" r="84" fill="url(#fur)"/></g><g fill="#E8A66D"><ellipse cx="183" cy="352" rx="47" ry="53"/><ellipse cx="575" cy="352" rx="47" ry="53"/></g><g fill="#C98559" opacity=".65"><ellipse cx="188" cy="365" rx="19" ry="32"/><ellipse cx="570" cy="365" rx="19" ry="32"/></g>
+<!-- head -->
+<path d="M204 241c-7-124 78-184 177-184 102 0 195 62 186 191 38 36 42 97 24 154-31 96-106 160-210 166-105-5-186-66-213-165-19-67-10-126 36-162Z" fill="url(#fur)" stroke="#5A2C24" stroke-width="16" stroke-linejoin="round"/>
+<!-- fluffy forehead -->
+<path d="M232 231c12-89 76-127 150-128 65 1 129 30 147 111-26-26-47-12-67-38-9 30-31 37-51 41-42 9-78-15-92-39-25 38-60 31-87 53Z" fill="#C38953" opacity=".58"/>
+<!-- facial mask -->
+<path d="M267 254c-49 18-76 62-70 121 6 54 26 94 79 117 16 30 55 49 105 52 64-2 100-29 114-51 55-28 80-75 72-137-7-48-32-84-77-102-32-12-70-2-109 18-40-20-77-30-114-18Z" fill="url(#soft)" stroke="#704129" stroke-width="11"/>
+<!-- eye patches -->
+<ellipse cx="302" cy="341" rx="73" ry="69" fill="#A66B46" opacity=".5"/><ellipse cx="465" cy="341" rx="73" ry="69" fill="#A66B46" opacity=".5"/>
+<!-- royal sunglasses -->
+<g stroke="#241336" stroke-linejoin="round"><path d="M226 314q70-30 136 3l-13 65c-7 39-46 58-77 48-35-10-46-42-46-70Z" fill="#2D1850" stroke-width="12"/><path d="M407 317q68-35 137-3v47c-2 53-29 73-70 70-36-3-52-33-58-58Z" fill="#2D1850" stroke-width="12"/><path d="M360 321q25-14 48-2" fill="none" stroke-width="15"/><path d="M224 317l-44-11M544 317l37-11" stroke-width="14"/></g>
+<path d="M247 340l57-19-22 54M432 341l61-18-23 47" fill="#AE8CF1" opacity=".65"/>
+<!-- muzzle -->
+<path d="M298 423c0-25 40-49 82-49 43 0 83 23 83 49l6 51c-14 43-55 71-90 71-43 0-77-29-88-69Z" fill="url(#soft)"/><ellipse cx="379" cy="434" rx="29" ry="18" fill="#63382E"/><path d="M316 475q61 67 128 0" fill="none" stroke="#5C312E" stroke-width="11" stroke-linecap="round"/><path d="M328 478q49 43 101 0" fill="none" stroke="#FFF1C3" stroke-width="7" stroke-linecap="round"/>
+<!-- crown -->
+<g filter="url(#shadow)"><path d="M242 208 231 91l82 42 65-96 64 95 87-44-17 122-12 42H257Z" fill="url(#gold)" stroke="#654126" stroke-width="13" stroke-linejoin="round"/><path d="M258 203q122 18 246 0l-5 41q-118 26-239 0Z" fill="#FFC94D" stroke="#654126" stroke-width="10"/><path d="M277 120l-4-25 27 18" fill="#FFFAA6"/><path d="M380 38l-5 30M477 114l19-13" stroke="#FFF7A4" stroke-width="7" stroke-linecap="round"/><path d="M380 169l23 20-23 23-24-23Z" fill="#8A4DDB" stroke="#50297B" stroke-width="6"/><circle cx="288" cy="215" r="9" fill="#8A4DDB"/><circle cx="475" cy="215" r="9" fill="#8A4DDB"/></g>
+<!-- headphones either side of crown -->
+<path d="M184 339c-9-104 39-170 57-180M572 339c13-101-32-167-51-179" fill="none" stroke="#331B54" stroke-width="24" stroke-linecap="round"/><rect x="157" y="321" width="47" height="104" rx="23" fill="#9A63E9" stroke="#331B54" stroke-width="10" transform="rotate(-9 180 373)"/><rect x="553" y="321" width="47" height="104" rx="23" fill="#9A63E9" stroke="#331B54" stroke-width="10" transform="rotate(9 580 373)"/>
+<!-- banana wand in paw -->
+<g transform="rotate(-17 607 570)"><path d="M563 459c50 88 101 127 150 41-7 103-64 137-120 97-29-21-46-62-47-128Z" fill="url(#banana)" stroke="#8E571E" stroke-width="11" stroke-linejoin="round"/><path d="M567 460l-6-21M711 496l19-14" stroke="#6C4125" stroke-width="10" stroke-linecap="round"/><path d="M585 496q43 77 93 35" fill="none" stroke="#FFF9AC" stroke-width="10" stroke-linecap="round"/></g>
+<!-- paw on wand -->
+<path d="M593 594c-28-7-53 0-68 26-13 25-5 53 21 63 40 20 85-1 92-37 7-27-10-43-45-52Z" fill="#A86A46" stroke="#5C3329" stroke-width="12"/><path d="M552 622l15 17M575 611l14 19M598 613l11 15" stroke="#6F3C35" stroke-width="9" stroke-linecap="round"/>
+<!-- gold hoodie insignia -->
+<g transform="translate(377 678)"><circle r="34" fill="#FFD850" stroke="#4D2A67" stroke-width="8"/><path d="M-16 5l-3-17 12 7 8-16 8 16 12-7-4 17Z" fill="#683A98"/><path d="M-13 12h29" stroke="#683A98" stroke-width="6" stroke-linecap="round"/></g>
+</svg>
